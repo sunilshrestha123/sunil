@@ -15,6 +15,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -50,10 +51,10 @@ public class AdminServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
       //  processRequest(request, response);
-    if(request.getParameter("action").equalsIgnoreCase("login")){
+    //if(request.getParameter("action").equalsIgnoreCase("login")){
         
     
-    }
+    
     }
 
     /**
@@ -67,6 +68,7 @@ public class AdminServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+            HttpSession session = request.getSession();
       String name=request.getParameter("name");
       String email=request.getParameter("email");
       String phone=request.getParameter("phone");
@@ -112,10 +114,29 @@ public class AdminServlet extends HttpServlet {
           String pass=request.getParameter("Password");
           System.out.println(username);
           System.out.println(pass);
-          AdminModel am=new AdminModel();
-          System.out.println(am.getEmail());
-        //join two tables in psql
-
+     AdminModel am=AdminDao.login(username,pass);
+          if (am !=null){
+          session.setAttribute("id",am.getId());
+          session.setAttribute("name",am.getName());
+          session.setAttribute("email",am.getEmail());
+          session.setAttribute("phone",am.getPhone());
+           session.setAttribute("psaaword",am.getPassword());
+          session.setAttribute("gender",am.getGender());
+           session.setAttribute("bdate",am.getBdate());
+          session.setAttribute("location",am.getLocation());
+          
+          RequestDispatcher rd=request.getRequestDispatcher("Menu.jsp");
+          rd.forward(request, response);
+          
+          }else{
+          String message="email or psssword did not match ";
+          request.setAttribute("msg",message);
+              RequestDispatcher rd=request.getRequestDispatcher("login.jsp");    
+              rd.forward(request, response);
+          
+          }
+ 
+          
           
       
           

@@ -39,19 +39,22 @@ public class AdminDao {
     return false;
     
     }
-public static AdminModel login(String username,String password){
-    AdminModel am=null;
-Statement st=DBConnection.statementObject();
-String sql="SELECT * FROM  admin";
-try{
-ResultSet rs=st.executeQuery(sql);
-rs.next();
-am=new AdminModel(rs.getString("email"),rs.getString("password"));
-    System.out.println("data is get from database");
-}catch(Exception e){
+  public static AdminModel login(String username, String pass) {
+        Statement st = DBConnection.statementObject();
+        String sql = "SELECT * FROM admin WHERE email='" + username + "' AND password='" + pass + "'";
+        try {
+            ResultSet rs = st.executeQuery(sql);
+            if(rs.next()) {
+             AdminModel  am = new AdminModel(rs.getInt("id"),rs.getString("name"),rs.getString("email"), rs.getString("password"),rs.getString("phone"),rs.getString("gender"),rs.getString("birthdate"),rs.getString("location"),rs.getString("photo"));
+                System.out.println("Admin is found");
+            return am;
+            } else{
+                return null;
+            }
+        
+        }catch(Exception e){
     System.out.println("data is not get from database");
-    
 }
-return am;
+        return null;
 }
 }
