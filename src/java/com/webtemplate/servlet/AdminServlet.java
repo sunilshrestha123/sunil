@@ -35,7 +35,7 @@ public class AdminServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        
+    
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -50,25 +50,11 @@ public class AdminServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-      //  processRequest(request, response);
-    //if(request.getParameter("action").equalsIgnoreCase("login")){
-        
-    
-    
     }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            HttpSession session = request.getSession();
+          HttpSession session = request.getSession();
       String name=request.getParameter("name");
       String email=request.getParameter("email");
       String phone=request.getParameter("phone");
@@ -110,9 +96,10 @@ public class AdminServlet extends HttpServlet {
       
       
       }else if(request.getParameter("action").equalsIgnoreCase("login")){
-          String username=request.getParameter("Email");
-          String pass=request.getParameter("Password");
-          System.out.println(username);
+          String username=request.getParameter("email");
+         
+            String pass =PasswordEncryption.encryptPassword(password); 
+          System.out.println("username"+username);
           System.out.println(pass);
      AdminModel am=AdminDao.login(username,pass);
           if (am !=null){
@@ -137,19 +124,8 @@ public class AdminServlet extends HttpServlet {
           }
  
           
-          
-      
-          
-          
-         
-      
-      
+   }
       }
       
-      
-      
-    }
+    }      
 
-  
-
-}

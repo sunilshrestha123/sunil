@@ -3,6 +3,7 @@
     Created on : Nov 24, 2017, 11:13:44 PM
     Author     : Admin
 --%>
+
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -116,7 +117,7 @@
                      
                                         <button type="submit"  id="btnSubmit" class="btn btn-success">Submit</button>
                                         <button type="reset" class="btn btn-primary">Reset Form</button>
-                                       <c:set var="msg" value='<%=request.getAttribute("msg")%>'></c:set>
+                                     <c:set var="msg" value='<%=request.getAttribute("msg")%>'></c:set>
                             <c:if test="${!msg.equals(null)}">
                                 <label for="terms" style="padding-top: 20px;color: red">${msg}</label>
                             </c:if>

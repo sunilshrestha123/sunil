@@ -13,6 +13,6 @@
     </head>
     <body>
        <div id="wrapper">
-           <%@include file="Sidebarjsp"%>
+           <%@include file="Sidebar.jsp"%>
     </body>
 </html>
